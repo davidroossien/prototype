@@ -1,4 +1,4 @@
-module prototype/log
+module prototype.log
 
 go 1.17
 

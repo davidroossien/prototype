@@ -1,4 +1,4 @@
-package main
+package semanticSort
 
 import (
 	"errors"
@@ -11,8 +11,8 @@ import (
 var inputSemanticVersions = [6]string{"1.5.2", "1.0.1", "1.2.0", "1.1.1", "1.3.0", "1.2.11"}
 
 // represents a semantic version we can use to sort the input array
-type semanticVersion struct {
-	version string
+type SemanticVersion struct {
+	Version string
 	major   int
 	minor   int
 	patch   int
@@ -21,26 +21,26 @@ type semanticVersion struct {
 /*
    Uses sort.Slice to sort a semanticVersion structs
 */
-func main() {
+// func main() {
 
-	fmt.Println("Start...")
+// 	fmt.Println("Start...")
 
-	initalizedSemanticVersions, err := initialize(inputSemanticVersions[:])
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+// 	initalizedSemanticVersions, err := initialize(inputSemanticVersions[:])
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 	}
 
-	sortedSemanticVersions := semanticSort(initalizedSemanticVersions)
+// 	sortedSemanticVersions := semanticSort(initalizedSemanticVersions)
 
-	fmt.Println("Sorted semantic versions:")
+// 	fmt.Println("Sorted semantic versions:")
 
-	// print the result
-	for i := 0; i < len(sortedSemanticVersions); i++ {
-		fmt.Println(sortedSemanticVersions[i].version)
-	}
+// 	// print the result
+// 	for i := 0; i < len(sortedSemanticVersions); i++ {
+// 		fmt.Println(sortedSemanticVersions[i].version)
+// 	}
 
-	fmt.Println("Done...")
-}
+// 	fmt.Println("Done...")
+// }
 
 /*
 initialize accepts an array of strings that are formatted with semantic versions.
@@ -51,14 +51,14 @@ semanticVersion structures.
 @param an array of strings that are formatted as semantic versions i.e. 1.0.0
 @return array of semanticVersion structures
 */
-func initialize(inputSemanticVersions []string) ([]semanticVersion, error) {
+func Initialize(inputSemanticVersions []string) ([]SemanticVersion, error) {
 
 	if len(inputSemanticVersions) == 0 {
 		return nil, errors.New("Empty input data detected. Please provide an array of inputSemanticVersions.")
 	}
 
 	// make a slice we can build and then output
-	outputSemanticVersions := make([]semanticVersion, len(inputSemanticVersions))
+	outputSemanticVersions := make([]SemanticVersion, len(inputSemanticVersions))
 
 	// initialize the structs
 	for i := 0; i < len(inputSemanticVersions); i++ {
@@ -72,11 +72,11 @@ func initialize(inputSemanticVersions []string) ([]semanticVersion, error) {
 			return nil, errors.New("Invalid inputSemanticVersions in row " + fmt.Sprint(i) + ", missing at least one semantic (major, minor or patch).")
 		}
 
-		var sv semanticVersion
+		var sv SemanticVersion
 		var err error
 
 		// put the whole string in version (i.e. "1.0.0")
-		sv.version = inputSemanticVersions[i]
+		sv.Version = inputSemanticVersions[i]
 
 		// convert and assign major
 		sv.major, err = strconv.Atoi(versions[0])
@@ -110,9 +110,9 @@ an array of semanticVersion structures
 @param inputSemanticVersions an array of semanticVersion structures to be sorted
 @return a sorted array of semanticVersion structures
 */
-func semanticSort(inputSemanticVersions []semanticVersion) []semanticVersion {
+func SemanticSort(inputSemanticVersions []SemanticVersion) []SemanticVersion {
 
-	sortedSemanticVersions := make([]semanticVersion, len(inputSemanticVersions))
+	sortedSemanticVersions := make([]SemanticVersion, len(inputSemanticVersions))
 	sortedSemanticVersions = inputSemanticVersions
 
 	// do the sortation
