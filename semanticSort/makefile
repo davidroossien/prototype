@@ -28,3 +28,4 @@ lint:
 
 deploy:
 	cp ${BINARY_NAME} ${GOBIN}/${BINARY_NAME}
+
