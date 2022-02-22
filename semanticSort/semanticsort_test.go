@@ -1,4 +1,4 @@
-package semanticSort
+package semanticsort
 
 import (
 	"fmt"
@@ -7,11 +7,11 @@ import (
 )
 
 func TestInitialize(t *testing.T) {
+	t.Parallel()
 
-	var inputSemanticVersions = [5]string{"10.0.1", "5.2.0", "1.1.1", "1.3.0", "1.2.11"}
+	inputSemanticVersions := []string{"10.0.1", "5.2.0", "1.1.1", "1.3.0", "1.2.11"}
 
-	initializedSemanticVersions, err := Initialize(inputSemanticVersions[:])
-
+	initializedSemanticVersions, err := Initialize(inputSemanticVersions)
 	if err != nil {
 		t.Log(err)
 		t.Fail()
@@ -24,26 +24,22 @@ func TestInitialize(t *testing.T) {
 }
 
 /*
-depends on initialize
+   It depends on initialize
 */
 func TestSemanticSort(t *testing.T) {
+	t.Parallel()
 
-	var inputSemanticVersions = [5]string{"10.0.1", "5.2.0", "1.1.1", "1.3.0", "1.2.11"}
+	inputSemanticVersions := []string{"10.0.1", "5.2.0", "1.1.1", "1.3.0", "1.2.11"}
 
-	initializedSemanticVersions, err := Initialize(inputSemanticVersions[:])
-
+	initializedSemanticVersions, err := Initialize(inputSemanticVersions)
 	if err != nil {
 		t.Log("Test dependedncy failed: " + err.Error())
 		t.Fail()
 	}
 
-	var expectSemanticVersions = [5]string{"1.1.1", "1.2.11", "1.3.0", "5.2.0", "10.0.1"}
+	expectSemanticVersions := []string{"1.1.1", "1.2.11", "1.3.0", "5.2.0", "10.0.1"}
 
-	//var sortedSemanticVersions = [5]string
-
-	var sortedSemanticVersions = SemanticSort(initializedSemanticVersions)
-
-	fmt.Println(fmt.Sprint(len(sortedSemanticVersions)))
+	sortedSemanticVersions := SemanticSort(initializedSemanticVersions)
 
 	// check each string
 	for i := 0; i < len(expectSemanticVersions); i++ {
@@ -54,5 +50,4 @@ func TestSemanticSort(t *testing.T) {
 			t.Fail()
 		}
 	}
-
 }
