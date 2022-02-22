@@ -1,4 +1,4 @@
-package log
+package simplelog
 
 import (
 	"errors"
@@ -17,11 +17,9 @@ func GetFunctionName(temp interface{}) string {
 	return strs[len(strs)-1]
 }
 
-var logFile *os.File
-
 /*
-
- */
+   Configures the simple logger.
+*/
 func Config(filename string) (int, error) {
 	fmt.Println("log program Started.")
 
@@ -31,14 +29,14 @@ func Config(filename string) (int, error) {
 	uuidWithHyphen := uuid.New()
 	fmt.Println("Generated uuid: " + uuidWithHyphen.String())
 
-	var logFile, err = os.OpenFile(filename, os.O_APPEND|os.O_WRONLY, 0666)
+	logFile, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY, 0666)
 	if err != nil {
 		fmt.Println(err)
 		if errors.Is(err, os.ErrNotExist) {
 			logFile, err = os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0666)
 			if err != nil {
 				fmt.Println(err)
-				//log.Fatal("Could not open " + filename)
+				// log.Fatal("Could not open " + filename)
 				return -1, errors.New("could not open filename " + filename)
 			}
 		}
@@ -57,7 +55,6 @@ func Config(filename string) (int, error) {
 	fmt.Println("log program Exiting.")
 
 	return 0, nil
-
 }
 
 // func log(statement string)

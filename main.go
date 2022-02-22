@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	ll "prototype/log"
-	ss "prototype/semanticSort"
+	ss "prototype/semanticsort"
+	ll "prototype/simplelog"
 )
 
 /*
